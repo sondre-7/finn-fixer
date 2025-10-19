@@ -1,16 +1,9 @@
 # Finn.no Grid Layout Fixer
 
-A Firefox extension that improves the grid layout on finn.no by:
+An extension that improves the product grid layout on finn.no by:
 1. Making the filters section collapsible (hidden by default, click to expand)
 2. Adjusting column spans for better layout
 3. Changing result list from 3 columns to 2 columns on medium screens
-
-## Installation
-
-1. Open Firefox and navigate to `about:debugging`
-2. Click "This Firefox" in the left sidebar
-3. Click "Load Temporary Add-on"
-4. Navigate to this directory and select `manifest.json`
 
 ## Usage
 
