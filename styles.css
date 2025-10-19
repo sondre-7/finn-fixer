@@ -1,0 +1,59 @@
+/* Custom filter header */
+.finn-fixer-filter-header {
+  cursor: pointer;
+  user-select: none;
+  padding: 12px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.2s ease;
+}
+
+.finn-fixer-filter-header:hover {
+  background-color: #e8e8e8;
+}
+
+.finn-fixer-filter-header:focus {
+  outline: 2px solid #0063FB;
+  outline-offset: 2px;
+}
+
+/* Expand/collapse indicator */
+.finn-fixer-indicator {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 0.8em;
+  transition: transform 0.2s ease;
+}
+
+/* Collapsible filters section styles */
+section.finn-fixer-collapsed {
+  display: none !important;
+}
+
+section.finn-fixer-expanded {
+  display: block !important;
+  display: none;
+}
+
+/* Grid layout overrides */
+.col-span-3 {
+  grid-column: span 3 / span 3 !important;
+}
+
+/* Result list grid override */
+.sf-result-list.md\:grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+@media (min-width: 768px) {
+  .sf-result-list.md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
