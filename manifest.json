@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Finn.no Grid Layout Fixer",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Improves the grid layout on finn.no by making filters collapsible and adjusting column layouts",
   "icons": {
     "48": "icons/icon-48.png",
