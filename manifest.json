@@ -7,6 +7,14 @@
     "48": "icons/icon-48.png",
     "96": "icons/icon-96.png"
   },
+
+
+"browser_specific_settings": {
+  "gecko": {
+    "id": "finn-fixer@bysondre.com",
+    "strict_min_version": "120.0"
+  }
+},
   "content_scripts": [
     {
       "matches": [
