@@ -1,5 +1,46 @@
+// Browser API polyfill for Chrome compatibility
+const browserAPI = typeof browser !== 'undefined' ? browser : chrome;
+
+// Default settings
+const DEFAULT_SETTINGS = {
+  maxWidth: 1800,
+  mediumColumns: 2
+};
+
+// Load settings from storage
+async function loadSettings() {
+  try {
+    const result = await browserAPI.storage.local.get(['maxWidth', 'mediumColumns']);
+    return {
+      maxWidth: result.maxWidth || DEFAULT_SETTINGS.maxWidth,
+      mediumColumns: result.mediumColumns || DEFAULT_SETTINGS.mediumColumns
+    };
+  } catch (error) {
+    console.error('Error loading settings:', error);
+    return DEFAULT_SETTINGS;
+  }
+}
+
+// Apply CSS custom properties for settings
+async function applySettings() {
+  const settings = await loadSettings();
+  
+  // Set CSS custom properties on document root
+  document.documentElement.style.setProperty('--finn-fixer-max-width', `${settings.maxWidth}px`);
+  document.documentElement.style.setProperty('--finn-fixer-medium-columns', settings.mediumColumns);
+  
+  // Also apply grid columns directly to result list
+  const resultList = document.querySelector('.sf-result-list');
+  if (resultList) {
+    // Apply medium columns
+    resultList.style.setProperty('--finn-fixer-medium-columns', settings.mediumColumns);
+  }
+}
+
 // Wait for DOM to be ready and apply modifications
-function applyLayoutFixes() {
+async function applyLayoutFixes() {
+  // Apply settings first
+  await applySettings();
   // Fix 1: Make filters section collapsible (hidden by default)
   const filtersSection = document.querySelector('section[aria-labelledby="filters-heading"]');
   
@@ -98,12 +139,27 @@ if (document.readyState === 'loading') {
   applyLayoutFixes();
 }
 
+// Listen for settings updates from popup
+browserAPI.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === 'updateSettings') {
+    applySettings();
+    sendResponse({ success: true });
+  }
+  return true;
+});
+
 // Also observe for dynamic content changes (in case finn.no uses SPA routing)
 const observer = new MutationObserver((mutations) => {
   // Check if filters section appeared and hasn't been processed yet
   const filtersSection = document.querySelector('section[aria-labelledby="filters-heading"]');
   if (filtersSection && !filtersSection.hasAttribute('data-finn-fixer-processed')) {
     applyLayoutFixes();
+  }
+  
+  // Also re-apply settings if result list appears
+  const resultList = document.querySelector('.sf-result-list');
+  if (resultList) {
+    applySettings();
   }
 });
 
