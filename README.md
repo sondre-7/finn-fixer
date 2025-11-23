@@ -96,7 +96,7 @@ zip -r finn-fixer.zip . -x "*.git*" "*.DS_Store" "*.md" "LICENSE"
 
 ## Version History
 
-### 1.1
+### 1.2
 - Added customizable max-width setting
 - Added customizable column layout setting
 - Added settings popup interface
